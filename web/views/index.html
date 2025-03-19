@@ -1,0 +1,86 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SQLite Explorer</title>
+    <link rel="stylesheet" href="../static/css/index.css" />
+    <script src="https://unpkg.com/htmx.org@2.0.4"
+        integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <p>Database: {{.DbPath}}</p>
+        {{template "tables" .}}
+        {{template "query" .}}
+        <div id="errors"></div>
+        {{ if .Columns }}
+        {{template "queryResult" .}}
+        {{ end }}
+    </div>
+</body>
+<script src="../static/js/table.js"></script>
+
+</html>
+{{ end }}
+
+{{ block "tables" . }}
+<div>
+    <h2>Tables</h2>
+    {{if .Tables}}
+    <ul class="tables">
+        {{range .Tables}}
+        <li><a href="/table/{{.}}">{{.}}</a></li>
+        {{end}}
+    </ul>
+    {{else}}
+    <p>No tables found in this database.</p>
+    {{end}}
+</div>
+{{ end }}
+
+{{ block "query" . }}
+<form hx-post="/query" hx-target="body">
+    <textarea id="querySql" name="query" class="query-sql" placeholder="Enter SQL query..."></textarea>
+    <button id="queryButton" class="query-button" type="submit">Query</button>
+</form>
+{{end}}
+
+{{ block "queryResult" . }}
+<div>
+    <h2>Query Result</h2>
+    {{if .Columns}}
+    <input type="text" id="tableFilter" class="table-filter" placeholder="Filter query result..." />
+    <p>Columns: {{len .Columns}}, Rows: {{len .Rows}}, Time: {{.QueryTime}}</p>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                {{range .Columns}}
+                <th>{{.}}</th>
+                {{end}}
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Rows}}
+            <tr>
+                {{range .}}
+                <td>{{.}}</td>
+                {{end}}
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="{{len .Columns}}">
+                    No data in this query result.
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    {{else}}
+    <p>No query result found.</p>
+    {{end}}
+</div>
+{{ end }}

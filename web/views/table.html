@@ -1,0 +1,60 @@
+{{ block "title" . }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Table: {{.TableName}}</title>
+    <link rel="stylesheet" href="../static/css/table.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Table: {{.TableName}}</h1>
+            <a href="/" class="back-link">← Back to tables</a>
+        </div>
+        <div>
+            <span class="query">
+                {{if .Query}}
+                <p>Query: {{.Query}}</p>
+                {{end}}
+            </span>
+        </div>
+        {{if .Columns}}
+        <input type="text" id="tableFilter" class="table-filter" placeholder="Filter table..." />
+        {{template "table" .}}
+        {{else}}
+        <p>No columns found for this table.</p>
+        {{end}}
+    </div>
+</body>
+<script src="../static/js/table.js"></script>
+
+</html>
+{{ end }}
+
+{{block "table" .}}
+<p>Columns: {{len .Columns}}, Rows: {{len .Rows}}</p>
+<table id="dataTable">
+    <thead>
+        <tr>
+            {{range .Columns}}
+            <th>{{.}}</th>
+            {{end}}
+        </tr>
+    </thead>
+    <tbody>
+        {{range .Rows}}
+        <tr>
+            {{range .}}
+            <td>{{.}}</td>
+            {{end}}
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="{{len .Columns}}">No data in this table.</td>
+        </tr>
+        {{end}}
+    </tbody>
+</table>
+{{end}}
