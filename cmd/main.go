@@ -38,7 +38,7 @@ func main() {
 
     if len(flag.Args()) < 1 {
         fmt.Println("Error: SQLite db file path required")
-        fmt.Println("Usage: sqlite-explorer <database-file> [--port=PORT]")
+        fmt.Println("<database-file>")
         os.Exit(1)
     }
 
