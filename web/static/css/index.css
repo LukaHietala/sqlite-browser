@@ -104,3 +104,14 @@ h3 {
     margin-top: 0;
     color: #24292e;
 }
+
+.query-sql {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-gray);
+    white-space: pre-wrap;
+    max-width: 100%;
+    overflow-x: auto;
+    font-size: 14px;
+}

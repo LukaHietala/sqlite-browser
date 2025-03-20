@@ -44,7 +44,8 @@
 
 {{ block "query" . }}
 <form hx-post="/query" hx-target="body">
-    <textarea id="querySql" name="query" class="query-sql" placeholder="Enter SQL query..."></textarea>
+    <textarea id="querySql" name="query" class="query-sql" placeholder="Enter SQL query..." rows="5"
+        cols="50"></textarea>
     <button id="queryButton" class="query-button" type="submit">Query</button>
 </form>
 {{end}}
