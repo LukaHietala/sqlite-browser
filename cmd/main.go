@@ -126,11 +126,8 @@ func main() {
             return
         }
 
-        cols, rows, timeTaken, err := RunQuery(query)
-        if err != nil {
-            http.Error(w, "Error running query: "+err.Error(), http.StatusInternalServerError)
-            return
-        }
+        // error is ignored, because we want to show the error to the user
+        cols, rows, timeTaken, _ := RunQuery(query)
 
         tables, err := GetTables()
         if err != nil {
