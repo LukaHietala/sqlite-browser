@@ -7,8 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 type Templates struct {

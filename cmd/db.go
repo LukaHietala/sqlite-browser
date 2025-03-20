@@ -5,16 +5,19 @@ import (
 	"fmt"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/tursodatabase/go-libsql"
 )
 
 var db *sql.DB
 
 // sqlite_master https://wiki.tcl-lang.org/page/sqlite_master
 
+
+// LibSql for more functionality
+
 func InitDB(dbPath string) error {
     var err error
-    db, err = sql.Open("sqlite3", dbPath)
+    db, err = sql.Open("libsql", "file:"+dbPath+"")
     if err != nil {
         return fmt.Errorf("failed to open database: %v", err)
     }

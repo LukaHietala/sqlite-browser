@@ -13,7 +13,8 @@
 
 <body>
     <div class="container">
-        <p>Database: {{.DbPath}}</p>
+        <p>Database: {{.DbPath}}; Driver: <a target="_blank" rel="noopener noreferrer"
+                href="https://github.com/tursodatabase/libsql">libSQL</a></p>
         {{template "tables" .}}
         {{template "query" .}}
         <div id="errors"></div>
